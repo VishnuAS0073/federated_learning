@@ -84,7 +84,7 @@ def send_agg_to_clients():
 		for c in clients:
 			if c != '':
 
-				file = open(cwd + "\\agg_model\\model.h5", 'rb')
+				file = open(cwd + "/agg_model/model.h5", 'rb')
 				data = {'fname':'model.h5'}
 				files = {
 					'json': ('json_data', json.dumps(data), 'application/json'),

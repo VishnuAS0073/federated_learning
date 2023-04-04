@@ -22,7 +22,7 @@ def train():
 	if os.path.isdir(cwd + '/local_model') == False:
 		os.mkdir(cwd + '/local_model')
 	object_name = "object_name"
-	main_path = '/image_dataset_path'
+	main_path = cwd + '/image_dataset_path'
 	train_path = main_path+'/train'
 	valid_path = main_path+'/valid'
 	test_path = main_path+'/test'
