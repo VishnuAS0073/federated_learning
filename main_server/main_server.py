@@ -76,25 +76,29 @@ def perform_model_aggregation():
 
 @app.route('/send_model_clients')
 def send_agg_to_clients():
-	clients = ''
-	with open(cwd + '/clients.txt', 'r') as f:
-		clients = f.read()
-	clients = clients.split('\n')
-	
-	for c in clients:
-		if c != '':
-			file = open(cwd + "/agg_model/agg_model.txt", 'rb')
-			data = {'fname':'agg_model.txt'}
-			files = {
-				'json': ('json_data', json.dumps(data), 'application/json'),
-				'model': ('agg_model.txt', file, 'application/octet-stream')
-			}
-			
-			print(c+'aggmodel')
-			req = requests.post(url=c+'aggmodel', files=files)
-			print(req.status_code)
-	
-	return render_template("sent.html")
+	try:
+		with open(cwd + '/clients.txt', 'r') as f:
+			clients = f.read()
+		clients = clients.split('\n')
+		
+		for c in clients:
+			if c != '':
+
+				file = open(cwd + "\\agg_model\\model.h5", 'rb')
+				data = {'fname':'model.h5'}
+				files = {
+					'json': ('json_data', json.dumps(data), 'application/json'),
+					'model': ('model.h5', file, 'application/octet-stream')
+				}
+				cli = c+"/aggmodel"
+				print(cli)
+				req = requests.post(url=cli, files=files)
+				print(req.status_code)
+		
+		return render_template("sent.html")
+	except Exception as e:
+		print(e)
+		print("server error")
 
 
 
