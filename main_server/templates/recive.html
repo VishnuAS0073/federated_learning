@@ -1,18 +1,13 @@
+{% extends "layout.html" %}
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
+    {% block contant %}
     <div class="w3-container w3-teal w3-padding-12">
         <h1 style="text-align: center;">Federated Server for Model Aggregation</h1>
     </div>
-    <ul class="w3-ul w3-border ">
-        <li><h2 class="w3-light-grey" style="text-align: center;">Following Object Detections Models of <strong>Federated Clients 1,2 and 3</strong> Received At <br> <strong> Federated Server</strong> For Model Aggregation</h2></li>
-        <li style="font-size:large;">Face Detection</li>
-        <li style="font-size:large;">Animal Detection</li>
-        <li style="font-size:large;">Unsafe Content Detections</li>
-        <li style="font-size:large;">Noteworthy Vehicle Detection</li>
-    </ul>
 	
 	<div class="w3-container w3-light-grey w3-padding-12">
         <h2 style="text-align: center;" id="agg"></h2>
@@ -33,6 +28,6 @@
 		}
 		</script>
 	</div>
-
+    {% endblock %}
 </body>
 </html> 

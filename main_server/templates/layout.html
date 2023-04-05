@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<Head>
+    <title>{{page_name}}</title>
+    <link rel="stylesheet" type= "text/css" href="{{url_for('static',filename='css/style.css')}}">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+</Head>
+
+<body>
+    <nav class="mainnav">
+        <input type="checkbox" id="check">
+        <label for ="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo"><a class="acthower" href="{{url_for('home')}}">Diabetic retinopathy Detection using Federated Learning</a></label>
+        <ul>
+            <li><a class="acthower" href="{{url_for('Diagnosis')}}">Diagnosis</a></li>
+            <li><a class="acthower" href="{{url_for('Train')}}">Model Training</a></li>
+        </ul>
+    </nav>
+    {% block contant %}    <!------ block content  just check of the spelling stupid -->
+    {% endblock %}
+
+</body>
+</html>

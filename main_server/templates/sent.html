@@ -1,8 +1,10 @@
+{% extends "layout.html" %}
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
+    {% block contant %}
     <div class="w3-container w3-teal w3-padding-12">
         <h1 style="text-align: center;">Federated Server for Model Aggregation</h1>
     </div>
@@ -13,6 +15,7 @@
 		<li><h2 class="w3-light-grey" style="text-align: center;">Full Working of Federated Learning Using Flask and Gunicorn Completed!! </h2></li>
 
     </ul>
+    {% endblock %}
 	
 </body>
 </html> 

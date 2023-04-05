@@ -5,8 +5,7 @@ import requests
 import ast
 import os
 from model_train import train
-import matplotlib
-matplotlib.use("Agg")
+# import matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 # import cv2
@@ -91,4 +90,4 @@ def model_train():
 	return render_template('train.html',epoch = len(loss),loss = loss ,accuracy = accuracy,val_loss = val_loss ,val_accuracy = val_accuracy, name = z, user_image = image)
 
 if __name__ == '__main__':
-	app.run(host='localhost', port=8001, debug=False, use_reloader=True)
+	app.run(host='localhost', port=8001, debug=True, use_reloader=True)

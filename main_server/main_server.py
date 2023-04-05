@@ -1,16 +1,48 @@
-from flask import Flask, request,render_template
+from flask import Flask, request,render_template,redirect
+from jinja2 import FileSystemLoader,Environment
 import requests, json
-import ast
 import os
-from fl_agg import model_aggregation
+import matplotlib.image as mpimg
+from PIL import Image
+import ast
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+from torchvision import datasets, transforms, models
+import os
+from agg_train import model_aggregation
+
+from Diagonasis import get_prediction,transform_image
 
 app = Flask(__name__)
 
 cwd = os.getcwd()
 
 @app.route('/')
-def hello():
-	return render_template("recive.html")
+def main():
+    return render_template('home.html',page_name="Home DR using FL")
+
+@app.route('/home')
+def home():
+    return render_template('home.html',page_name="DR using FL")
+
+@app.route('/Diagnosis', methods=['GET', 'POST'])
+def Diagnosis():
+    if request.method == 'POST':
+        if 'DRfile' not in request.files:
+            return redirect(request.url)
+        file = request.files.get('DRfile')
+        if not file:
+           return
+        img_bytes = file.read()
+        file_tensor = transform_image(image_bytes=img_bytes) #######
+        class_name = get_prediction(file_tensor)
+        return render_template('result.html', page_name="DR result",result=class_name)
+    return render_template('index.html',page_name="DR Diagnosis")
+
+@app.route('/Train', methods=['GET', 'POST'])
+def Train():
+    return render_template('recive.html',page_name="Fed Training")
 
 @app.route('/clientstatus', methods=['GET','POST'])
 def client_status():
@@ -84,15 +116,17 @@ def send_agg_to_clients():
 		for c in clients:
 			if c != '':
 
-				file = open(cwd + "/agg_model/model.h5", 'rb')
-				data = {'fname':'model.h5'}
+				file = open(cwd + "/agg_model/agg_model.pt", 'rb')
+				data = {'fname':'agg_model.pt'}
 				files = {
 					'json': ('json_data', json.dumps(data), 'application/json'),
-					'model': ('model.h5', file, 'application/octet-stream')
+					'model': ('agg_model.pt', file, 'application/octet-stream')
 				}
-				cli = c+"/aggmodel"
+				print("file readed")
+				cli = c+"aggmodel"
 				print(cli)
 				req = requests.post(url=cli, files=files)
+				print("request sent")
 				print(req.status_code)
 		
 		return render_template("sent.html")
